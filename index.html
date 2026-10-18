@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+  <!-- Google Consent Mode v2 (Default Setup before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Check if user has already stored consent
+    var storedConsent = localStorage.getItem('gregsfak_consent_status');
+    if (storedConsent === 'granted') {
+      gtag('consent', 'default', {
+        'ad_storage': 'granted',
+        'analytics_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'personalization_storage': 'granted',
+        'functionality_storage': 'granted',
+        'security_storage': 'granted'
+      });
+    } else {
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'personalization_storage': 'denied',
+        'functionality_storage': 'granted',
+        'security_storage': 'granted',
+        'wait_for_update': 500
+      });
+    }
+  </script>
+
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -582,6 +613,41 @@
     .form-input:focus {
       border-color: var(--blue-accent);
       box-shadow: 0 0 0 4px rgba(46, 163, 242, 0.15);
+    }
+
+    .form-checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 14px 0 10px;
+      text-align: left;
+    }
+
+    .form-checkbox {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--orange);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .form-checkbox-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .form-checkbox-label a {
+      color: var(--navy);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .form-checkbox-label a:hover {
+      color: var(--orange);
     }
 
     .form-submit-btn {
@@ -1324,8 +1390,218 @@
       .steps-container, .stats-grid {
         grid-template-columns: 1fr;
       }
-      .stat-card {
-        padding: 18px 12px;
+    }
+
+    /* COOKIE CONSENT BANNER */
+    .cookie-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      max-width: 520px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 15px 45px rgba(0, 41, 70, 0.22), 0 0 0 1px rgba(0, 41, 70, 0.08);
+      z-index: 99999;
+      display: none;
+      animation: slideUpFade 0.4s ease-out forwards;
+    }
+
+    @keyframes slideUpFade {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .cookie-banner h4 {
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cookie-banner p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .cookie-banner a {
+      color: var(--orange);
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cookie-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cookie-btn-accept {
+      flex: 1;
+      background: var(--orange);
+      color: #ffffff;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .cookie-btn-accept:hover {
+      background: var(--orange-hover);
+    }
+
+    .cookie-btn-reject {
+      background: #f1f5f9;
+      color: var(--navy);
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid #cbd5e1;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .cookie-btn-reject:hover {
+      background: #e2e8f0;
+    }
+
+    /* POLICY POP-UP MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 26, 46, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 20000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 820px;
+      max-height: 85vh;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalZoom 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modalZoom {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 20px 26px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+    }
+
+    .modal-header h3 {
+      font-size: 1.35rem;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .modal-close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: #e2e8f0;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      background: #cbd5e1;
+      transform: scale(1.08);
+    }
+
+    .modal-body {
+      padding: 26px;
+      overflow-y: auto;
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.65;
+    }
+
+    .modal-body h4 {
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin: 20px 0 8px;
+    }
+
+    .modal-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .modal-body p {
+      margin-bottom: 12px;
+    }
+
+    .modal-body ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .modal-body li {
+      margin-bottom: 6px;
+    }
+
+    .modal-footer {
+      padding: 16px 26px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 640px) {
+      .cookie-banner {
+        bottom: 75px; /* Above mobile sticky bar */
+        left: 12px;
+        right: 12px;
+        padding: 18px 16px;
+      }
+      .modal-box {
+        max-height: 90vh;
+      }
+      .modal-header {
+        padding: 16px 18px;
+      }
+      .modal-body {
+        padding: 18px 16px;
       }
     }
   </style>
@@ -1464,7 +1740,13 @@
           <p>Εντοπίζουμε μέσα σε 24 ώρες <strong>πού χάνετε χρήματα</strong> στις τωρινές διαφημίσεις σας και σας δίνουμε ξεκάθαρο πλάνο για να πολλαπλασιάσετε τις πωλήσεις σας.</p>
         </div>
 
-        <form id="leadForm" name="leadForm" action="#audit-form" method="POST" onsubmit="handleFormSubmit(event)">
+        <form id="leadForm" name="leadForm" action="https://formsubmit.co/gregsfak@hotmail.com" method="POST" onsubmit="handleFormSubmit(event)">
+          <!-- FormSubmit Configuration Fields -->
+          <input type="hidden" name="_subject" value="Νέο Αίτημα για Δωρεάν Google Ads Audit! (gregsfak.eu)">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+
           <div class="form-group">
             <label for="fullName">Ονοματεπώνυμο *</label>
             <input type="text" id="fullName" name="fullName" class="form-input" placeholder="π.χ. Γιάννης Παπαδόπουλος" required>
@@ -1488,6 +1770,13 @@
               <option value="800-2000">800€ - 2.000€ / μήνα</option>
               <option value="2000+">Άνω των 2.000€ / μήνα</option>
             </select>
+          </div>
+
+          <div class="form-checkbox-group">
+            <input type="checkbox" id="consentTerms" name="consentTerms" class="form-checkbox" required>
+            <label for="consentTerms" class="form-checkbox-label">
+              Έχω διαβάσει και αποδέχομαι τους <a href="javascript:void(0)" onclick="openModal('termsModal')">Όρους Χρήσης</a> και την <a href="javascript:void(0)" onclick="openModal('privacyModal')">Πολιτική Απορρήτου</a>. *
+            </label>
           </div>
 
           <button type="submit" class="btn btn-orange form-submit-btn">
@@ -1833,7 +2122,126 @@
         <span>hello@gregsfak.eu</span>
       </a>
     </div>
+    <div style="margin-top: 14px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; font-size: 0.84rem;">
+      <a href="javascript:void(0)" onclick="openModal('privacyModal')" style="color: #cbd5e1; text-decoration: underline; cursor: pointer;">Πολιτική Απορρήτου</a>
+      <span style="color: #4b5563;">•</span>
+      <a href="javascript:void(0)" onclick="openModal('cookiesModal')" style="color: #cbd5e1; text-decoration: underline; cursor: pointer;">Πολιτική Cookies</a>
+      <span style="color: #4b5563;">•</span>
+      <a href="javascript:void(0)" onclick="openModal('termsModal')" style="color: #cbd5e1; text-decoration: underline; cursor: pointer;">Όροι Χρήσης</a>
+    </div>
   </footer>
+
+  <!-- COOKIE CONSENT BANNER (Google Consent Mode v2) -->
+  <div class="cookie-banner" id="cookieBanner">
+    <h4>
+      <i data-lucide="cookie" style="color: var(--orange); width: 22px; height: 22px;"></i>
+      <span>Ρυθμίσεις Απορρήτου & Cookies</span>
+    </h4>
+    <p>
+      Χρησιμοποιούμε cookies για τη βελτιστοποίηση της εμπειρίας περιήγησής σας, τη μέτρηση επισκεψιμότητας και την εξατομίκευση διαφημίσεων. Διαβάστε περισσότερα στην <a href="javascript:void(0)" onclick="openModal('cookiesModal')">Πολιτική Cookies</a> και την <a href="javascript:void(0)" onclick="openModal('privacyModal')">Πολιτική Απορρήτου</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="cookie-btn-accept" onclick="acceptAllCookies()">Αποδοχή Όλων</button>
+      <button class="cookie-btn-reject" onclick="rejectAllCookies()">Μόνο Απαραίτητα</button>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY MODAL -->
+  <div class="modal-overlay" id="privacyModal" onclick="closeModalOnOverlay(event, 'privacyModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Πολιτική Απορρήτου & Προστασίας Δεδομένων</h3>
+        <button class="modal-close-btn" onclick="closeModal('privacyModal')" title="Κλείσιμο">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>1. Τι είναι τα προσωπικά δεδομένα</h4>
+        <p>Ο όρος «προσωπικά δεδομένα», αναφέρεται σε πληροφορίες φυσικών προσώπων, όπως ονοματεπώνυμο, ταχυδρομική διεύθυνση, ηλεκτρονική διεύθυνση, τηλέφωνο επικοινωνίας κ.ά., οι οποίες προσδιορίζουν ή μπορούν να προσδιορίσουν την ταυτότητα σας, εφεξής «Προσωπικά Δεδομένα ή Δεδομένα».</p>
+
+        <h4>2. Τι είναι η Επεξεργασία Προσωπικών Δεδομένων</h4>
+        <p>Κάθε πράξη ή σειρά πράξεων που πραγματοποιείται με ή χωρίς τη χρήση αυτοματοποιημένων μέσων, σε δεδομένα προσωπικού χαρακτήρα ή σε σύνολα δεδομένων, όπως η συλλογή, καταχώριση, οργάνωση, αποθήκευση, μεταβολή, ανάκτηση, χρήση, κοινολόγηση ή διαγραφή.</p>
+
+        <h4>3. Είναι υποχρεωτική η παραχώρηση των Δεδομένων σας;</h4>
+        <p>Η παραχώρηση των Δεδομένων στην Εταιρεία μας είναι απαραίτητη για να επιτευχθούν οι σκοποί που προσδιορίζονται στην παρούσα Πολιτική (π.χ. επικοινωνία για τον δωρεάν έλεγχο λογαριασμού, υποβολή προσφοράς κ.α.). Η υποχρεωτική φύση επισημαίνεται με αστερίσκο (*).</p>
+
+        <h4>4. Ποια Δεδομένα σας συλλέγουμε</h4>
+        <ul>
+          <li><strong>Στοιχεία Επικοινωνίας:</strong> Ονοματεπώνυμο, τηλέφωνο, email και διεύθυνση ιστοσελίδας που συμπληρώνετε στις φόρμες επικοινωνίας.</li>
+          <li><strong>Στοιχεία Επισκεψιμότητας & Cookies:</strong> Πληροφορίες που συλλέγονται από τη χρήση cookies στον browser σας για την τεχνική βελτίωση του ιστότοπου.</li>
+          <li><strong>Τεχνικές πληροφορίες:</strong> Τύπος περιηγητή, διεύθυνση IP, ανώνυμα στατιστικά επισκεψιμότητας.</li>
+        </ul>
+
+        <h4>5. Πώς χρησιμοποιούμε τα Δεδομένα σας</h4>
+        <p>Χρησιμοποιούμε τα δεδομένα σας αποκλειστικά για:</p>
+        <ul>
+          <li>Την εκτέλεση και παράδοση του δωρεάν ελέγχου λογαριασμού (Audit) και την απάντηση στα αιτήματά σας.</li>
+          <li>Τη βελτίωση των υπηρεσιών και της απόδοσης των διαφημιστικών καμπανιών.</li>
+          <li>Την εκπλήρωση των συμβατικών και νομικών μας υποχρεώσεων σύμφωνα με τον GDPR.</li>
+        </ul>
+
+        <h4>6. Τα δικαιώματά σας</h4>
+        <p>Έχετε το δικαίωμα πρόσβασης, διόρθωσης, διαγραφής («δικαίωμα στη λήθη»), περιορισμού και εναντίωσης στην επεξεργασία των δεδομένων σας, καθώς και άρσης της συγκατάθεσής σας οποιαδήποτε στιγμή αποστέλλοντας email στο <strong>hello@gregsfak.eu</strong>.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-navy" onclick="closeModal('privacyModal')" style="padding: 10px 24px; font-size: 0.9rem;">Κλείσιμο</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COOKIES POLICY MODAL -->
+  <div class="modal-overlay" id="cookiesModal" onclick="closeModalOnOverlay(event, 'cookiesModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Πολιτική Cookies (Cookies Policy)</h3>
+        <button class="modal-close-btn" onclick="closeModal('cookiesModal')" title="Κλείσιμο">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>1. Τι είναι τα cookies;</h4>
+        <p>Τα «cookies» είναι μικρά αρχεία κειμένου που αποθηκεύονται στον περιηγητή σας όταν επισκέπτεστε έναν ιστότοπο. Σε καμία περίπτωση δεν περιέχουν προσωπικά αρχεία από τον υπολογιστή σας ούτε προκαλούν βλάβες στις συσκευές σας.</p>
+
+        <h4>2. Ποιες κατηγορίες cookies χρησιμοποιούμε;</h4>
+        <ul>
+          <li><strong>Αναγκαία Cookies (Strictly Necessary):</strong> Είναι απολύτως απαραίτητα για τη βασική λειτουργία της σελίδας, την ασφάλεια και την αποστολή φορμών. Δεν μπορούν να απενεργοποιηθούν.</li>
+          <li><strong>Cookies Στατιστικών & Απόδοσης (Analytics):</strong> Συλλέγουν ανώνυμες πληροφορίες για το πώς οι επισκέπτες χρησιμοποιούν τη σελίδα (π.χ. μέσω Google Analytics 4), βοηθώντας μας να βελτιώσουμε τη λειτουργικότητα.</li>
+          <li><strong>Cookies Διαφήμισης & Εμπορικής Προώθησης (Marketing):</strong> Χρησιμοποιούνται για τη μέτρηση της αποτελεσματικότητας των διαφημίσεων Google Ads και την προβολή εξατομικευμένου περιεχομένου.</li>
+        </ul>
+
+        <h4>3. Google Consent Mode v2</h4>
+        <p>Ο ιστότοπός μας υποστηρίζει πλήρως το επίσημο πρωτόκολλο <strong>Google Consent Mode v2</strong>. Μέχρι να παραχωρήσετε τη συγκατάθεσή σας, τα cookies διαφήμισης (ad_storage, ad_user_data, ad_personalization) και αναλυτικών (analytics_storage) παραμένουν αυστηρά απενεργοποιημένα (denied).</p>
+
+        <h4>4. Διαχείριση και Ανάκληση Συγκατάθεσης</h4>
+        <p>Μπορείτε οποτεδήποτε να αλλάξετε τις προτιμήσεις σας ή να διαγράψετε τα cookies μέσα από τις ρυθμίσεις του browser σας.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-navy" onclick="closeModal('cookiesModal')" style="padding: 10px 24px; font-size: 0.9rem;">Κλείσιμο</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERMS OF SERVICE MODAL -->
+  <div class="modal-overlay" id="termsModal" onclick="closeModalOnOverlay(event, 'termsModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Όροι Χρήσης Υπηρεσιών</h3>
+        <button class="modal-close-btn" onclick="closeModal('termsModal')" title="Κλείσιμο">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>1. Γενικοί Όροι</h4>
+        <p>Η χρήση της παρούσας landing page και των παρεχόμενων υπηρεσιών διαφήμισης Google Ads από τον Γρηγόρη Σφακιανό (Gregian Marketing Services) διέπεται από τους παρόντες όρους και την ισχύουσα ελληνική και ευρωπαϊκή νομοθεσία.</p>
+
+        <h4>2. Παροχή Δωρεάν Ελέγχου (Audit)</h4>
+        <p>Ο δωρεάν έλεγχος λογαριασμού (Audit) παρέχεται χωρίς καμία απολύτως οικονομική δέσμευση εκ μέρους του ενδιαφερόμενου. Αποτελεί συμβουλευτική ανάλυση και πρόταση βελτιστοποίησης με βάση τις βέλτιστες πρακτικές της Google.</p>
+
+        <h4>3. Εμπιστευτικότητα & Πνευματικά Δικαιώματα</h4>
+        <p>Όλα τα στοιχεία που κοινοποιούνται από τον πελάτη (στοιχεία λογαριασμού Google Ads, διαφημιστικό budget, εμπορικά δεδομένα) θεωρούνται αυστηρά εμπιστευτικά και δεν διαβιβάζονται σε τρίτους. Το σύνολο του περιεχομένου και των εμπορικών σημάτων αποτελεί πνευματική ιδιοκτησία του Γρηγόρη Σφακιανού.</p>
+
+        <h4>4. Επικοινωνία</h4>
+        <p>Για οποιαδήποτε διευκρίνιση σχετικά με τους όρους συνεργασίας, μπορείτε να επικοινωνήσετε στο τηλέφωνο <strong>+30 697 917 9129</strong> ή στο email <strong>hello@gregsfak.eu</strong>.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-navy" onclick="closeModal('termsModal')" style="padding: 10px 24px; font-size: 0.9rem;">Κλείσιμο</button>
+      </div>
+    </div>
+  </div>
 
   <!-- FLOATING BUTTONS (DESKTOP) -->
   <div class="floating-container">
@@ -1916,12 +2324,17 @@
       initApp();
     }
 
-    // Form submission handler (Fully integrated with GTM Form Submission)
+    // Form submission handler (Fully integrated with GTM & sends email to gregsfak@hotmail.com)
     function handleFormSubmit(e) {
       e.preventDefault();
       const form = e.target;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
       const successMsg = document.getElementById('successMsg');
       const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
       
       submitBtn.innerHTML = '<span>Αποστολή...</span>';
       submitBtn.style.opacity = '0.7';
@@ -1937,12 +2350,167 @@
         'conversionType': 'lead'
       });
 
-      setTimeout(() => {
+      // Send form data asynchronously via fetch
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
         successMsg.style.display = 'block';
         submitBtn.innerHTML = '<span>Ολοκληρώθηκε!</span>';
         submitBtn.style.background = '#10b981';
         form.reset();
-      }, 700);
+      })
+      .catch(error => {
+        // Fallback standard submit if fetch fails
+        form.submit();
+      });
+    }
+
+    // Google Consent Mode v2 & Cookie Banner Logic
+    let scrollConsentAttached = false;
+
+    function handleScrollConsent() {
+      const consent = localStorage.getItem('gregsfak_consent_status');
+      if (consent) {
+        window.removeEventListener('scroll', handleScrollConsent);
+        return;
+      }
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      const winHeight = window.innerHeight || document.documentElement.clientHeight;
+      const scrollTotal = docHeight - winHeight;
+      const scrollPercent = scrollTotal > 0 ? (scrollTop / scrollTotal) : 0;
+
+      // Auto-accept if user scrolls ~5% of page or 150px
+      if (scrollPercent >= 0.05 || scrollTop >= 150) {
+        acceptAllCookies();
+        window.removeEventListener('scroll', handleScrollConsent);
+      }
+    }
+
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('gregsfak_consent_status');
+      if (!consent) {
+        // Show banner after brief delay for smooth UX
+        setTimeout(() => {
+          const banner = document.getElementById('cookieBanner');
+          if (banner) {
+            banner.style.display = 'block';
+            if (window.lucide) {
+              lucide.createIcons();
+            }
+          }
+        }, 500);
+
+        // Attach scroll listener to auto-accept on ~5% scroll
+        if (!scrollConsentAttached) {
+          window.addEventListener('scroll', handleScrollConsent, { passive: true });
+          scrollConsentAttached = true;
+        }
+      }
+    }
+
+    function acceptAllCookies() {
+      if (scrollConsentAttached) {
+        window.removeEventListener('scroll', handleScrollConsent);
+      }
+      localStorage.setItem('gregsfak_consent_status', 'granted');
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+          'ad_storage': 'granted',
+          'analytics_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted',
+          'personalization_storage': 'granted',
+          'functionality_storage': 'granted',
+          'security_storage': 'granted'
+        });
+      }
+      // Push event into GTM dataLayer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'consent_update',
+        'consent_status': 'granted'
+      });
+
+      const banner = document.getElementById('cookieBanner');
+      if (banner) {
+        banner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          banner.style.display = 'none';
+        }, 300);
+      }
+    }
+
+    function rejectAllCookies() {
+      if (scrollConsentAttached) {
+        window.removeEventListener('scroll', handleScrollConsent);
+      }
+      localStorage.setItem('gregsfak_consent_status', 'denied');
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+          'ad_storage': 'denied',
+          'analytics_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'personalization_storage': 'denied',
+          'functionality_storage': 'granted',
+          'security_storage': 'granted'
+        });
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'consent_update',
+        'consent_status': 'denied'
+      });
+
+      const banner = document.getElementById('cookieBanner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    // Modal Controls for Privacy Policy, Cookies & Terms
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeModalOnOverlay(e, modalId) {
+      if (e.target.id === modalId) {
+        closeModal(modalId);
+      }
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        ['privacyModal', 'cookiesModal', 'termsModal'].forEach(id => closeModal(id));
+      }
+    });
+
+    // Check consent on app init
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    } else {
+      checkCookieConsent();
     }
   </script>
 </body>
