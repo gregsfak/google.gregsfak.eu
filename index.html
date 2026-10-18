@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4KNJKB');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Αποτροπή ευρετηρίασης από τη Google και μηχανές αναζήτησης (No SEO Indexing) -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
   <title>Διαφήμιση Google Ads με Μετρήσιμη Απόδοση | Γρηγόρης Σφακιανός</title>
   <meta name="description" content="Εκτοξεύστε τις πωλήσεις και το ROAS σας με στοχευμένες καμπάνιες Google Ads. Κάντε αίτηση για 100% Δωρεάν Έλεγχο Λογαριασμού (Audit) αξίας 250€!">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="gregsfak.eu_wp-content_uploads_2023_02_Gregian-Marketing-Services-gigoris-sfakianos-logo-orizontio-12022023.svg">
+  <link rel="apple-touch-icon" href="gregsfak.eu_wp-content_uploads_2023_02_Gregian-Marketing-Services-gigoris-sfakianos-logo-orizontio-12022023.svg">
   
   <!-- Performance Optimization: Resource Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1316,6 +1331,10 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4KNJKB"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- TOP GOOGLE PARTNER ANNOUNCEMENT BAR -->
   <div class="top-partner-bar">
@@ -1445,25 +1464,25 @@
           <p>Εντοπίζουμε μέσα σε 24 ώρες <strong>πού χάνετε χρήματα</strong> στις τωρινές διαφημίσεις σας και σας δίνουμε ξεκάθαρο πλάνο για να πολλαπλασιάσετε τις πωλήσεις σας.</p>
         </div>
 
-        <form id="leadForm" onsubmit="handleFormSubmit(event)">
+        <form id="leadForm" name="leadForm" action="#audit-form" method="POST" onsubmit="handleFormSubmit(event)">
           <div class="form-group">
             <label for="fullName">Ονοματεπώνυμο *</label>
-            <input type="text" id="fullName" class="form-input" placeholder="π.χ. Γιάννης Παπαδόπουλος" required>
+            <input type="text" id="fullName" name="fullName" class="form-input" placeholder="π.χ. Γιάννης Παπαδόπουλος" required>
           </div>
 
           <div class="form-group">
             <label for="phoneNumber">Τηλέφωνο Επικοινωνίας (Για άμεση ενημέρωση) *</label>
-            <input type="tel" id="phoneNumber" class="form-input" placeholder="π.χ. 697 123 4567" required>
+            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="π.χ. 697 123 4567" required>
           </div>
 
           <div class="form-group">
             <label for="businessWebsite">Website ή E-shop URL *</label>
-            <input type="url" id="businessWebsite" class="form-input" placeholder="https://yourwebsite.gr" required>
+            <input type="url" id="businessWebsite" name="businessWebsite" class="form-input" placeholder="https://yourwebsite.gr" required>
           </div>
 
           <div class="form-group">
             <label for="monthlyBudget">Μηνιαίο Διαφημιστικό Budget (Google Ads)</label>
-            <select id="monthlyBudget" class="form-input">
+            <select id="monthlyBudget" name="monthlyBudget" class="form-input">
               <option value="start">Δεν έχω ξεκινήσει ακόμα (Νέο project)</option>
               <option value="300-800">300€ - 800€ / μήνα</option>
               <option value="800-2000">800€ - 2.000€ / μήνα</option>
@@ -1804,9 +1823,16 @@
       </a>
     </div>
     <p>© 2026 Γρηγόρης Σφακιανός | Gregian Marketing Services. Όλα τα δικαιώματα διατηρούνται.</p>
-    <p style="margin-top: 8px;">
-      <a href="tel:+306979179129">Τηλέφωνο Επικοινωνίας: 697 917 9129</a>
-    </p>
+    <div style="margin-top: 12px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      <a href="tel:+306979179129" style="color: #ffffff; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+        <i data-lucide="phone" style="width: 15px; height: 15px; color: var(--orange);"></i>
+        <span>697 917 9129</span>
+      </a>
+      <a href="mailto:hello@gregsfak.eu" style="color: #ffffff; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+        <i data-lucide="mail" style="width: 15px; height: 15px; color: var(--orange);"></i>
+        <span>hello@gregsfak.eu</span>
+      </a>
+    </div>
   </footer>
 
   <!-- FLOATING BUTTONS (DESKTOP) -->
@@ -1890,22 +1916,33 @@
       initApp();
     }
 
-    // Form submission handler
+    // Form submission handler (Fully integrated with GTM Form Submission)
     function handleFormSubmit(e) {
       e.preventDefault();
+      const form = e.target;
       const successMsg = document.getElementById('successMsg');
-      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const submitBtn = form.querySelector('button[type="submit"]');
       
       submitBtn.innerHTML = '<span>Αποστολή...</span>';
       submitBtn.style.opacity = '0.7';
       submitBtn.disabled = true;
 
+      // Push custom event into GTM dataLayer for maximum tracking compatibility
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'form_submission',
+        'gtm.element': form,
+        'gtm.elementId': form.id,
+        'formName': 'Google Ads Audit Form',
+        'conversionType': 'lead'
+      });
+
       setTimeout(() => {
         successMsg.style.display = 'block';
         submitBtn.innerHTML = '<span>Ολοκληρώθηκε!</span>';
         submitBtn.style.background = '#10b981';
-        e.target.reset();
-      }, 800);
+        form.reset();
+      }, 700);
     }
   </script>
 </body>
