@@ -1,2 +1,38 @@
+# Robots.txt for google.gregsfak.eu
+# Allow all search engine crawlers and AI search bots to crawl and index this subdomain
+
 User-agent: *
-Disallow: /
+Allow: /
+
+# Google Search & Media Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Bing / Microsoft
+User-agent: Bingbot
+Allow: /
+
+# AI Crawlers & LLM Search Bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Sitemap reference for Google Search Console
+Sitemap: https://google.gregsfak.eu/sitemap.xml
