@@ -56,7 +56,10 @@
   <!-- Performance Optimization: Resource Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;600&display=swap">
+  </noscript>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest" defer></script>
 
@@ -2375,24 +2378,27 @@
 
     // Google Consent Mode v2 & Cookie Banner Logic
     let scrollConsentAttached = false;
+    let ticking = false;
 
     function handleScrollConsent() {
-      const consent = localStorage.getItem('gregsfak_consent_status');
-      if (consent) {
-        window.removeEventListener('scroll', handleScrollConsent);
-        return;
-      }
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      const winHeight = window.innerHeight || document.documentElement.clientHeight;
-      const scrollTotal = docHeight - winHeight;
-      const scrollPercent = scrollTotal > 0 ? (scrollTop / scrollTotal) : 0;
+      if (ticking) return;
+      ticking = true;
 
-      // Auto-accept if user scrolls ~5% of page or 150px
-      if (scrollPercent >= 0.05 || scrollTop >= 150) {
-        acceptAllCookies();
-        window.removeEventListener('scroll', handleScrollConsent);
-      }
+      window.requestAnimationFrame(() => {
+        const consent = localStorage.getItem('gregsfak_consent_status');
+        if (consent) {
+          window.removeEventListener('scroll', handleScrollConsent);
+          return;
+        }
+
+        const scrollTop = window.scrollY || window.pageYOffset || 0;
+        // Check simple pixel scroll threshold (>= 150px) without touching DOM height properties
+        if (scrollTop >= 150) {
+          acceptAllCookies();
+          window.removeEventListener('scroll', handleScrollConsent);
+        }
+        ticking = false;
+      });
     }
 
     function checkCookieConsent() {
